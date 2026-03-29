@@ -1,6 +1,13 @@
 # Never commit secrets
 config.ini
+
+# Python
 *.pyc
 __pycache__/
+
+# Virtual environment (managed by uv)
+.venv/
+
+# AWS SAM (replaced by Terraform)
 .aws-sam/
 config.json
