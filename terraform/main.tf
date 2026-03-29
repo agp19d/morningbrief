@@ -36,10 +36,11 @@ terraform {
   #     --key-schema AttributeName=LockID,KeyType=HASH \
   #     --billing-mode PAY_PER_REQUEST
   backend "s3" {
-    bucket  = "morningbrief-terraform-state"
-    key     = "morning-brief/terraform.tfstate"
-    region  = "us-east-1"
-    encrypt = true
+    bucket         = "morningbrief-terraform-state"
+    key            = "morning-brief/terraform.tfstate"
+    region         = "us-east-1"
+    encrypt        = true
+    dynamodb_table = "morning-brief-tf-locks"
   }
 }
 
