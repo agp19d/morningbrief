@@ -1,0 +1,35 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: AI Morning Brief - Daily Lambda + EventBridge Schedule
+
+Globals:
+  Function:
+    Timeout: 180
+    MemorySize: 256
+    Runtime: python3.12
+
+Resources:
+
+  MorningBriefFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: ai-morning-brief
+      Handler: lambda_function.lambda_handler
+      CodeUri: .
+      Description: Fetches AI & tech news and emails a morning brief
+      Events:
+        DailySchedule:
+          Type: Schedule
+          Properties:
+            Name: morning-brief-daily-6am-panama
+            Schedule: cron(0 11 * * ? *)
+            Description: Sends AI morning brief at 6AM Panama time every day
+            Enabled: true
+
+Outputs:
+  FunctionArn:
+    Description: Lambda Function ARN
+    Value: !GetAtt MorningBriefFunction.Arn
+  FunctionName:
+    Description: Lambda Function Name
+    Value: !Ref MorningBriefFunction

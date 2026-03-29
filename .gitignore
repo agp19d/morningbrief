@@ -1,0 +1,6 @@
+# Never commit secrets
+config.ini
+*.pyc
+__pycache__/
+.aws-sam/
+config.json
