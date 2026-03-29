@@ -35,14 +35,9 @@ resource "aws_iam_role_policy_attachment" "lambda_basic_execution" {
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
 }
 
-# ── CloudWatch Log Group ────────────────────────────────────────────────────
-
-resource "aws_cloudwatch_log_group" "morning_brief" {
-  name              = "/aws/lambda/ai-morning-brief"
-  retention_in_days = 14 # Keep 2 weeks of logs; adjust as needed.
-}
-
 # ── Lambda function ─────────────────────────────────────────────────────────
+# Note: Lambda automatically creates /aws/lambda/ai-morning-brief in
+# CloudWatch Logs on first invocation. No explicit resource needed.
 
 resource "aws_lambda_function" "morning_brief" {
   function_name = "ai-morning-brief"
@@ -76,7 +71,6 @@ resource "aws_lambda_function" "morning_brief" {
 
   depends_on = [
     aws_iam_role_policy_attachment.lambda_basic_execution,
-    aws_cloudwatch_log_group.morning_brief,
   ]
 }
 

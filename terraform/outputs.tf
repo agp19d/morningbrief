@@ -20,5 +20,5 @@ output "eventbridge_rule_arn" {
 
 output "cloudwatch_log_group" {
   description = "CloudWatch Log Group name for Lambda logs."
-  value       = aws_cloudwatch_log_group.morning_brief.name
+  value       = "/aws/lambda/ai-morning-brief"
 }

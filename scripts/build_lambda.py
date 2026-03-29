@@ -46,11 +46,20 @@ def clean_build_dir() -> None:
 
 
 def install_dependencies() -> None:
-    """Install production dependencies into the build directory using uv."""
+    """Install production dependencies into the build directory using uv.
+
+    Uses --python-platform linux to ensure binary packages (e.g. pydantic-core)
+    are downloaded as manylinux wheels compatible with the Lambda runtime,
+    regardless of the OS this script runs on (Windows, macOS, Linux).
+    """
     print(f"Installing dependencies: {', '.join(DEPENDENCIES)}")
     subprocess.run(
-        ["uv", "pip", "install", "--target", BUILD_DIR, "--python", "3.12"]
-        + DEPENDENCIES,
+        [
+            "uv", "pip", "install",
+            "--target", BUILD_DIR,
+            "--python", "3.12",
+            "--python-platform", "linux",  # Lambda runs on Linux x86_64
+        ] + DEPENDENCIES,
         check=True,
         cwd=PROJECT_ROOT,
     )
