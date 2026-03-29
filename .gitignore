@@ -8,6 +8,17 @@ __pycache__/
 # Virtual environment (managed by uv)
 .venv/
 
+# Lambda build artifacts
+build/
+lambda.zip
+
+# Terraform state and local overrides (never commit state files)
+terraform/*.tfstate
+terraform/*.tfstate.backup
+terraform/.terraform/
+terraform/.terraform.lock.hcl
+terraform/terraform.tfvars
+
 # AWS SAM (replaced by Terraform)
 .aws-sam/
 config.json
