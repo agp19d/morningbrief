@@ -13,7 +13,7 @@ build/
 lambda.zip
 
 # Terraform state and local overrides (never commit state files)
-terraform/*.tfstate
-terraform/*.tfstate.backup
-terraform/.terraform/
-terraform/terraform.tfvars
+terraform/**/.terraform/
+terraform/**/*.tfstate
+terraform/**/*.tfstate.backup
+terraform/**/terraform.tfvars
