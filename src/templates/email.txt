@@ -1,0 +1,20 @@
+AI Morning Brief — {{ brief.date }}
+
+{{ brief.headline }}
+
+{% for bullet in brief.bullets -%}
+{{ bullet.icon }} {{ bullet.topic }}: {{ bullet.text }}
+{% endfor %}
+{% set sources = brief.sources[:max_links] -%}
+{% if sources %}
+Read More:
+{% for source in sources -%}
+  • {{ source.title }}{% if source.outlet %} ({{ source.outlet }}){% endif %} — {{ source.url }}
+{% endfor %}
+{% endif %}
+{% if brief.deepDive -%}
+{% set dd = brief.deepDive %}
+Deep Dive — {{ dd.title }}
+{{ dd.body }}
+{% if dd.source_url %}{{ dd.source_url }}{% endif %}
+{% endif %}

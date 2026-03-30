@@ -1,0 +1,10 @@
+[project]
+name = "morning-brief"
+version = "0.1.0"
+description = "Daily AI & tech news brief delivered to your inbox every morning"
+requires-python = ">=3.12"
+dependencies = [
+    "jinja2>=3.1",
+    "litellm>=1.0",
+    "tavily-python>=0.5",
+]
