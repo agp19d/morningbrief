@@ -1,86 +1,251 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="x-apple-disable-message-reformatting">
+  <meta name="format-detection" content="telephone=no,address=no,email=no,date=no,url=no">
+  <title>AI Morning Brief — {{ brief.date }}</title>
+  <!--[if mso]>
+  <noscript>
+    <xml>
+      <o:OfficeDocumentSettings>
+        <o:PixelsPerInch>96</o:PixelsPerInch>
+      </o:OfficeDocumentSettings>
+    </xml>
+  </noscript>
+  <![endif]-->
+  <style>
+    /* ── Reset ── */
+    * { box-sizing: border-box; }
+    body, table, td, a { -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
+    table, td { mso-table-lspace: 0pt; mso-table-rspace: 0pt; }
+    img { -ms-interpolation-mode: bicubic; border: 0; height: auto; line-height: 100%; outline: none; text-decoration: none; }
+    a { color: #a3e635; text-decoration: none; }
+
+    /* ── Preheader hide ── */
+    .preheader { display: none !important; visibility: hidden; mso-hide: all; font-size: 1px; max-height: 0; max-width: 0; opacity: 0; overflow: hidden; }
+
+    /* ── Responsive ── */
+    @media screen and (max-width: 620px) {
+      .email-container { width: 100% !important; }
+      .mobile-padding { padding-left: 16px !important; padding-right: 16px !important; }
+      .headline-text { font-size: 20px !important; line-height: 1.35 !important; }
+      .bullet-icon-cell { width: 28px !important; font-size: 20px !important; }
+      .source-link-text { font-size: 13px !important; }
+    }
+
+    /* ── Dark mode — already dark design, but lock colors for clients that force light mode ── */
+    @media (prefers-color-scheme: dark) {
+      .force-bg { background-color: #050a05 !important; }
+    }
+  </style>
 </head>
-<body style="margin:0;padding:0;background:#050a05;">
-<div style="max-width:620px;margin:0 auto;padding:32px 20px;background:#050a05;">
+<body style="margin: 0; padding: 0; background-color: #050a05; width: 100%; word-break: break-word; -webkit-font-smoothing: antialiased;">
 
-  {# ── Header ─────────────────────────────────────────────────────────── #}
-  <div style="border-bottom:2px solid #a3e635;padding-bottom:18px;margin-bottom:24px;">
-    <div style="color:#a3e635;font-size:10px;letter-spacing:4px;text-transform:uppercase;font-family:monospace;">
-      Morning Brief &bull; {{ brief.date }}
-    </div>
-    <div style="color:#fff;font-size:22px;font-weight:bold;margin-top:10px;line-height:1.3;font-family:Georgia,serif;">
-      {{ brief.headline }}
-    </div>
-  </div>
+  {# Preheader — hidden text shown in inbox preview #}
+  <div class="preheader">{{ brief.headline }} — AI Morning Brief, {{ brief.date }}</div>
 
-  {# ── Bullet rows ─────────────────────────────────────────────────────── #}
-  <table style="width:100%;border-collapse:collapse;">
-    {% for bullet in brief.bullets %}
+  {# ── Outer wrapper table ── #}
+  <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color: #050a05;">
     <tr>
-      <td style="padding:13px 0;border-bottom:1px solid #1a2e1a;vertical-align:top;width:34px;font-size:22px;">
-        {{ bullet.icon }}
-      </td>
-      <td style="padding:13px 0 13px 16px;border-bottom:1px solid #1a2e1a;">
-        <div style="color:#a3e635;font-size:10px;letter-spacing:2px;text-transform:uppercase;font-family:monospace;margin-bottom:5px;">
-          {{ bullet.topic }}
-        </div>
-        <div style="color:#d1fae5;font-size:15px;line-height:1.6;font-family:Georgia,serif;">
-          {{ bullet.text }}
-        </div>
+      <td align="center" style="padding: 28px 12px;">
+
+        {# ── Email container ── #}
+        <table role="presentation" class="email-container" cellpadding="0" cellspacing="0" border="0" width="620" style="max-width: 620px; width: 100%;">
+
+          {# ══════════════════════════════════════════════════════════════════ #}
+          {# HEADER                                                             #}
+          {# ══════════════════════════════════════════════════════════════════ #}
+          <tr>
+            <td class="mobile-padding" style="padding: 0 0 0 0;">
+              <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+                <tr>
+                  <td style="padding-bottom: 20px; border-bottom: 2px solid #a3e635;">
+
+                    {# Date + brand label #}
+                    <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+                      <tr>
+                        <td>
+                          <p style="margin: 0 0 10px 0; color: #a3e635; font-size: 10px; letter-spacing: 4px; text-transform: uppercase; font-family: 'Courier New', Courier, monospace; line-height: 1;">
+                            Morning Brief &bull; {{ brief.date }}
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <h1 class="headline-text" style="margin: 0; color: #f0fdf0; font-size: 23px; font-weight: 700; line-height: 1.35; font-family: Georgia, 'Times New Roman', Times, serif;">
+                            {{ brief.headline }}
+                          </h1>
+                        </td>
+                      </tr>
+                    </table>
+
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          {# Spacer #}
+          <tr><td style="height: 24px; font-size: 0; line-height: 0;">&nbsp;</td></tr>
+
+          {# ══════════════════════════════════════════════════════════════════ #}
+          {# BULLET ROWS                                                        #}
+          {# ══════════════════════════════════════════════════════════════════ #}
+          {% for bullet in brief.bullets %}
+          <tr>
+            <td class="mobile-padding" style="padding: 0;">
+              <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+                <tr>
+                  {# Icon cell #}
+                  <td class="bullet-icon-cell" valign="top" style="width: 36px; padding: 14px 0 14px 0; border-bottom: 1px solid #1a2e1a; font-size: 22px; line-height: 1;">
+                    {{ bullet.icon }}
+                  </td>
+                  {# Content cell #}
+                  <td valign="top" style="padding: 14px 0 14px 14px; border-bottom: 1px solid #1a2e1a;">
+
+                    {# Topic badge #}
+                    <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin-bottom: 6px;">
+                      <tr>
+                        <td style="background-color: #0d2a0d; border: 1px solid #2d5a2d; padding: 2px 8px;">
+                          <span style="color: #a3e635; font-size: 9px; letter-spacing: 2.5px; text-transform: uppercase; font-family: 'Courier New', Courier, monospace; line-height: 1.4;">{{ bullet.topic }}</span>
+                        </td>
+                      </tr>
+                    </table>
+
+                    {# Body text #}
+                    <p style="margin: 0; color: #d1fae5; font-size: 15px; line-height: 1.65; font-family: Georgia, 'Times New Roman', Times, serif;">
+                      {{ bullet.text }}
+                    </p>
+
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          {% endfor %}
+
+          {# Spacer #}
+          <tr><td style="height: 24px; font-size: 0; line-height: 0;">&nbsp;</td></tr>
+
+          {# ══════════════════════════════════════════════════════════════════ #}
+          {# SOURCE LINKS                                                        #}
+          {# ══════════════════════════════════════════════════════════════════ #}
+          {% set sources = brief.sources[:max_links] %}
+          {% if sources %}
+          <tr>
+            <td class="mobile-padding" style="padding: 0;">
+
+              {# Box — border via table border trick for Outlook compatibility #}
+              <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color: #0a150a; border: 1px solid #1e3a1e;">
+                <tr>
+                  <td style="padding: 20px 22px;">
+
+                    {# Section label #}
+                    <p style="margin: 0 0 14px 0; color: #a3e635; font-size: 9px; letter-spacing: 3px; text-transform: uppercase; font-family: 'Courier New', Courier, monospace; line-height: 1;">
+                      &#x1F4F0; Read More
+                    </p>
+
+                    {# Links #}
+                    {% for source in sources %}
+                    <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="{% if not loop.last %}margin-bottom: 11px;{% endif %}">
+                      <tr>
+                        <td>
+                          <a class="source-link-text" href="{{ source.url }}" style="color: #a3e635; font-size: 14px; font-family: Georgia, 'Times New Roman', Times, serif; text-decoration: none; line-height: 1.5;">
+                            &#x2197; {{ source.title }}
+                          </a>
+                          {% if source.outlet %}
+                          <span style="color: #4a7a4a; font-size: 11px; font-family: 'Courier New', Courier, monospace; white-space: nowrap;"> &mdash; {{ source.outlet }}</span>
+                          {% endif %}
+                        </td>
+                      </tr>
+                    </table>
+                    {% endfor %}
+
+                  </td>
+                </tr>
+              </table>
+
+            </td>
+          </tr>
+
+          {# Spacer #}
+          <tr><td style="height: 24px; font-size: 0; line-height: 0;">&nbsp;</td></tr>
+          {% endif %}
+
+          {# ══════════════════════════════════════════════════════════════════ #}
+          {# DEEP DIVE                                                           #}
+          {# ══════════════════════════════════════════════════════════════════ #}
+          {% if brief.deepDive %}
+          {% set dd = brief.deepDive %}
+          <tr>
+            <td class="mobile-padding" style="padding: 0;">
+
+              <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color: #0d1a0d; border: 1px solid #2d4a2d;">
+                <tr>
+                  {# Left accent bar #}
+                  <td valign="top" style="width: 4px; background-color: #a3e635; padding: 0; font-size: 0; line-height: 0;">&nbsp;</td>
+                  {# Content #}
+                  <td style="padding: 20px 22px;">
+
+                    {# Section label #}
+                    <p style="margin: 0 0 10px 0; color: #a3e635; font-size: 9px; letter-spacing: 3px; text-transform: uppercase; font-family: 'Courier New', Courier, monospace; line-height: 1;">
+                      &#x1F52C; {{ dd.title }}
+                    </p>
+
+                    {# Body #}
+                    <p style="margin: 0; color: #d1fae5; font-size: 15px; line-height: 1.75; font-family: Georgia, 'Times New Roman', Times, serif;">
+                      {{ dd.body }}
+                    </p>
+
+                    {# Read full article link #}
+                    {% if dd.source_url %}
+                    <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin-top: 16px;">
+                      <tr>
+                        <td style="border: 1px solid #a3e635; padding: 6px 14px;">
+                          <a href="{{ dd.source_url }}" style="color: #a3e635; font-size: 11px; font-family: 'Courier New', Courier, monospace; text-decoration: none; letter-spacing: 1px; white-space: nowrap;">
+                            &#x2197; READ FULL ARTICLE
+                          </a>
+                        </td>
+                      </tr>
+                    </table>
+                    {% endif %}
+
+                  </td>
+                </tr>
+              </table>
+
+            </td>
+          </tr>
+
+          {# Spacer #}
+          <tr><td style="height: 28px; font-size: 0; line-height: 0;">&nbsp;</td></tr>
+          {% endif %}
+
+          {# ══════════════════════════════════════════════════════════════════ #}
+          {# FOOTER                                                              #}
+          {# ══════════════════════════════════════════════════════════════════ #}
+          <tr>
+            <td style="padding: 0 0 8px 0; border-top: 1px solid #1a2e1a;">
+            </td>
+          </tr>
+          <tr>
+            <td style="padding: 16px 0 4px 0; text-align: center;">
+              <p style="margin: 0; color: #4a7a4a; font-size: 11px; font-family: 'Courier New', Courier, monospace; letter-spacing: 1.5px; line-height: 1.6;">
+                Generated by Claude &bull; AI Morning Brief &bull; {{ delivery_label }}
+              </p>
+            </td>
+          </tr>
+
+        </table>
+        {# /email-container #}
+
       </td>
     </tr>
-    {% endfor %}
   </table>
+  {# /outer wrapper #}
 
-  {# ── Source links ────────────────────────────────────────────────────── #}
-  {% set sources = brief.sources[:max_links] %}
-  {% if sources %}
-  <div style="margin-top:22px;background:#0a150a;border:1px solid #1e3a1e;border-radius:8px;padding:18px 20px;">
-    <div style="color:#a3e635;font-size:10px;letter-spacing:2px;text-transform:uppercase;font-family:monospace;margin-bottom:14px;">
-      📰 Read More
-    </div>
-    {% for source in sources %}
-    <div style="margin-bottom:10px;line-height:1.5;">
-      <a href="{{ source.url }}" style="color:#a3e635;font-size:14px;font-family:Georgia,serif;text-decoration:none;">
-        ↗ {{ source.title }}
-      </a>
-      {% if source.outlet %}
-      <span style="color:#5a7a5a;font-size:11px;font-family:monospace;"> — {{ source.outlet }}</span>
-      {% endif %}
-    </div>
-    {% endfor %}
-  </div>
-  {% endif %}
-
-  {# ── Deep dive ───────────────────────────────────────────────────────── #}
-  {% if brief.deepDive %}
-  {% set dd = brief.deepDive %}
-  <div style="margin-top:22px;background:#0d1a0d;border:1px solid #2d4a2d;border-radius:8px;padding:22px;">
-    <div style="color:#a3e635;font-size:10px;letter-spacing:2px;text-transform:uppercase;font-family:monospace;margin-bottom:10px;">
-      🔬 {{ dd.title }}
-    </div>
-    <div style="color:#d1fae5;font-size:14px;line-height:1.8;font-family:Georgia,serif;">
-      {{ dd.body }}
-    </div>
-    {% if dd.source_url %}
-    <div style="margin-top:14px;">
-      <a href="{{ dd.source_url }}" style="color:#a3e635;font-size:12px;font-family:monospace;text-decoration:none;">
-        ↗ Read full article
-      </a>
-    </div>
-    {% endif %}
-  </div>
-  {% endif %}
-
-  {# ── Footer ──────────────────────────────────────────────────────────── #}
-  <div style="margin-top:28px;text-align:center;color:#2d4a2d;font-size:11px;font-family:monospace;letter-spacing:1px;">
-    Generated by Claude &bull; AI Morning Brief &bull; {{ delivery_label }}
-  </div>
-
-</div>
 </body>
 </html>
