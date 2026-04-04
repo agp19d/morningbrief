@@ -6,7 +6,9 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="x-apple-disable-message-reformatting">
   <meta name="format-detection" content="telephone=no,address=no,email=no,date=no,url=no">
-  <title>AI Morning Brief — {{ brief.date }}</title>
+  <meta name="color-scheme" content="dark">
+  <meta name="supported-color-schemes" content="dark">
+  <title>Morning Brief — {{ brief.date }}</title>
   <!--[if mso]>
   <noscript>
     <xml>
@@ -22,101 +24,138 @@
     body, table, td, a { -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
     table, td { mso-table-lspace: 0pt; mso-table-rspace: 0pt; }
     img { -ms-interpolation-mode: bicubic; border: 0; height: auto; line-height: 100%; outline: none; text-decoration: none; }
-    a { color: #a3e635; text-decoration: none; }
+    a { color: #38bdf8; text-decoration: none; }
+    a:hover { color: #67e8f9; }
 
     /* ── Preheader hide ── */
     .preheader { display: none !important; visibility: hidden; mso-hide: all; font-size: 1px; max-height: 0; max-width: 0; opacity: 0; overflow: hidden; }
 
-    /* ── Responsive ── */
-    @media screen and (max-width: 620px) {
-      .email-container { width: 100% !important; }
-      .mobile-padding { padding-left: 16px !important; padding-right: 16px !important; }
-      .headline-text { font-size: 20px !important; line-height: 1.35 !important; }
-      .bullet-icon-cell { width: 28px !important; font-size: 20px !important; }
-      .source-link-text { font-size: 13px !important; }
+    /* ── Base (mobile-first) ── */
+    .email-container { width: 100% !important; max-width: 480px; }
+    .outer-pad { padding: 16px 16px; }
+    .section-pad { padding: 0; }
+    .headline-text { font-size: 22px !important; line-height: 1.4 !important; }
+    .body-text { font-size: 16px !important; line-height: 1.7 !important; }
+    .icon-cell { width: 32px !important; font-size: 20px !important; }
+    .source-link { font-size: 15px !important; }
+    .badge-text { font-size: 9px !important; }
+    .dd-body { font-size: 15px !important; line-height: 1.75 !important; }
+
+    /* ── Larger screens ── */
+    @media screen and (min-width: 520px) {
+      .email-container { max-width: 540px !important; }
+      .outer-pad { padding: 32px 24px !important; }
+      .headline-text { font-size: 26px !important; }
+      .body-text { font-size: 16px !important; }
+      .icon-cell { width: 40px !important; font-size: 22px !important; }
     }
 
-    /* ── Dark mode — already dark design, but lock colors for clients that force light mode ── */
-    @media (prefers-color-scheme: dark) {
-      .force-bg { background-color: #050a05 !important; }
+    /* ── Lock dark mode in clients that try to override ── */
+    :root { color-scheme: dark; supported-color-schemes: dark; }
+    @media (prefers-color-scheme: light) {
+      .force-dark { background-color: #080c18 !important; }
     }
   </style>
 </head>
-<body style="margin: 0; padding: 0; background-color: #050a05; width: 100%; word-break: break-word; -webkit-font-smoothing: antialiased;">
+<body style="margin: 0; padding: 0; background-color: #080c18; width: 100%; word-break: break-word; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;">
 
   {# Preheader — hidden text shown in inbox preview #}
-  <div class="preheader">{{ brief.headline }} — AI Morning Brief, {{ brief.date }}</div>
+  <div class="preheader">{{ brief.headline }} — Morning Brief, {{ brief.date }}</div>
 
-  {# ── Outer wrapper table ── #}
-  <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color: #050a05;">
+  {# ── Outer wrapper ── #}
+  <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" class="force-dark" style="background-color: #080c18;">
     <tr>
-      <td align="center" style="padding: 28px 12px;">
+      <td align="center" class="outer-pad" style="padding: 16px 16px;">
 
         {# ── Email container ── #}
-        <table role="presentation" class="email-container" cellpadding="0" cellspacing="0" border="0" width="620" style="max-width: 620px; width: 100%;">
+        <table role="presentation" class="email-container" cellpadding="0" cellspacing="0" border="0" width="480" style="max-width: 480px; width: 100%;">
 
-          {# ══════════════════════════════════════════════════════════════════ #}
-          {# HEADER                                                             #}
-          {# ══════════════════════════════════════════════════════════════════ #}
+          {# ════════════════════════════════════════════════════════════ #}
+          {# HEADER                                                       #}
+          {# ════════════════════════════════════════════════════════════ #}
           <tr>
-            <td class="mobile-padding" style="padding: 0 0 0 0;">
+            <td style="padding: 0 0 20px 0;">
               <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
-                <tr>
-                  <td style="padding-bottom: 20px; border-bottom: 2px solid #a3e635;">
 
-                    {# Date + brand label #}
+                {# Brand mark + date row #}
+                <tr>
+                  <td style="padding-bottom: 16px;">
                     <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
                       <tr>
-                        <td>
-                          <p style="margin: 0 0 10px 0; color: #a3e635; font-size: 10px; letter-spacing: 4px; text-transform: uppercase; font-family: 'Courier New', Courier, monospace; line-height: 1;">
-                            Morning Brief &bull; {{ brief.date }}
+                        <td valign="middle" style="padding: 0;">
+                          <p style="margin: 0; color: #38bdf8; font-size: 10px; letter-spacing: 3.5px; text-transform: uppercase; font-family: 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans', Verdana, sans-serif; line-height: 1;">
+                            Morning Brief
+                          </p>
+                        </td>
+                        <td valign="middle" align="right" style="padding: 0;">
+                          <p style="margin: 0; color: #475569; font-size: 11px; font-family: 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans', Verdana, sans-serif; line-height: 1;">
+                            {{ brief.date }}
                           </p>
                         </td>
                       </tr>
-                      <tr>
-                        <td>
-                          <h1 class="headline-text" style="margin: 0; color: #f0fdf0; font-size: 23px; font-weight: 700; line-height: 1.35; font-family: Georgia, 'Times New Roman', Times, serif;">
-                            {{ brief.headline }}
-                          </h1>
-                        </td>
-                      </tr>
                     </table>
-
                   </td>
                 </tr>
+
+                {# Thin accent line #}
+                <tr>
+                  <td style="padding-bottom: 20px;">
+                    <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="48" style="width: 48px;">
+                      <tr>
+                        <td style="height: 2px; background-color: #38bdf8; font-size: 0; line-height: 0;">&nbsp;</td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+
+                {# Headline #}
+                <tr>
+                  <td>
+                    <h1 class="headline-text" style="margin: 0; color: #e2e8f0; font-size: 22px; font-weight: 700; line-height: 1.4; font-family: Georgia, 'Times New Roman', Times, serif; letter-spacing: -0.3px;">
+                      {{ brief.headline }}
+                    </h1>
+                  </td>
+                </tr>
+
               </table>
             </td>
           </tr>
 
-          {# Spacer #}
-          <tr><td style="height: 24px; font-size: 0; line-height: 0;">&nbsp;</td></tr>
+          {# Divider #}
+          <tr>
+            <td style="padding: 0;">
+              <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+                <tr><td style="height: 1px; background-color: #1a2440; font-size: 0; line-height: 0;">&nbsp;</td></tr>
+              </table>
+            </td>
+          </tr>
 
-          {# ══════════════════════════════════════════════════════════════════ #}
-          {# BULLET ROWS                                                        #}
-          {# ══════════════════════════════════════════════════════════════════ #}
+          {# ════════════════════════════════════════════════════════════ #}
+          {# BULLET ROWS                                                   #}
+          {# ════════════════════════════════════════════════════════════ #}
           {% for bullet in brief.bullets %}
           <tr>
-            <td class="mobile-padding" style="padding: 0;">
+            <td style="padding: 0;">
               <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
                 <tr>
-                  {# Icon cell #}
-                  <td class="bullet-icon-cell" valign="top" style="width: 36px; padding: 14px 0 14px 0; border-bottom: 1px solid #1a2e1a; font-size: 22px; line-height: 1;">
+                  {# Icon #}
+                  <td class="icon-cell" valign="top" style="width: 32px; padding: 18px 0 18px 0; font-size: 20px; line-height: 1;">
                     {{ bullet.icon }}
                   </td>
-                  {# Content cell #}
-                  <td valign="top" style="padding: 14px 0 14px 14px; border-bottom: 1px solid #1a2e1a;">
+                  {# Content #}
+                  <td valign="top" style="padding: 18px 0 18px 12px; border-bottom: 1px solid #1a2440;">
 
                     {# Topic badge #}
-                    <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin-bottom: 6px;">
+                    <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin-bottom: 8px;">
                       <tr>
-                        <td style="background-color: #0d2a0d; border: 1px solid #2d5a2d; padding: 2px 8px;">
-                          <span style="color: #a3e635; font-size: 9px; letter-spacing: 2.5px; text-transform: uppercase; font-family: 'Courier New', Courier, monospace; line-height: 1.4;">{{ bullet.topic }}</span>
+                        <td style="background-color: #0f1629; border: 1px solid #243354; border-radius: 3px; padding: 3px 10px;">
+                          <span class="badge-text" style="color: #38bdf8; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; font-family: 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans', Verdana, sans-serif; line-height: 1.4;">{{ bullet.topic }}</span>
                         </td>
                       </tr>
                     </table>
 
-                    {# Body text #}
-                    <p style="margin: 0; color: #d1fae5; font-size: 15px; line-height: 1.65; font-family: Georgia, 'Times New Roman', Times, serif;">
+                    {# Body #}
+                    <p class="body-text" style="margin: 0; color: #cbd5e1; font-size: 16px; line-height: 1.7; font-family: Georgia, 'Times New Roman', Times, serif;">
                       {{ bullet.text }}
                     </p>
 
@@ -128,36 +167,36 @@
           {% endfor %}
 
           {# Spacer #}
-          <tr><td style="height: 24px; font-size: 0; line-height: 0;">&nbsp;</td></tr>
+          <tr><td style="height: 28px; font-size: 0; line-height: 0;">&nbsp;</td></tr>
 
-          {# ══════════════════════════════════════════════════════════════════ #}
-          {# SOURCE LINKS                                                        #}
-          {# ══════════════════════════════════════════════════════════════════ #}
+          {# ════════════════════════════════════════════════════════════ #}
+          {# SOURCE LINKS                                                  #}
+          {# ════════════════════════════════════════════════════════════ #}
           {% set sources = brief.sources[:max_links] %}
           {% if sources %}
           <tr>
-            <td class="mobile-padding" style="padding: 0;">
+            <td style="padding: 0;">
 
-              {# Box — border via table border trick for Outlook compatibility #}
-              <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color: #0a150a; border: 1px solid #1e3a1e;">
+              <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color: #0f1629; border: 1px solid #1a2440; border-radius: 6px;">
                 <tr>
-                  <td style="padding: 20px 22px;">
+                  <td style="padding: 20px;">
 
                     {# Section label #}
-                    <p style="margin: 0 0 14px 0; color: #a3e635; font-size: 9px; letter-spacing: 3px; text-transform: uppercase; font-family: 'Courier New', Courier, monospace; line-height: 1;">
-                      &#x1F4F0; Read More
+                    <p style="margin: 0 0 14px 0; color: #94a3b8; font-size: 9px; letter-spacing: 2.5px; text-transform: uppercase; font-family: 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans', Verdana, sans-serif; line-height: 1;">
+                      Sources
                     </p>
 
                     {# Links #}
                     {% for source in sources %}
-                    <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="{% if not loop.last %}margin-bottom: 11px;{% endif %}">
+                    <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="{% if not loop.last %}margin-bottom: 12px;{% endif %}">
                       <tr>
-                        <td>
-                          <a class="source-link-text" href="{{ source.url }}" style="color: #a3e635; font-size: 14px; font-family: Georgia, 'Times New Roman', Times, serif; text-decoration: none; line-height: 1.5;">
-                            &#x2197; {{ source.title }}
+                        <td style="padding: 6px 0;">
+                          <a class="source-link" href="{{ source.url }}" style="color: #38bdf8; font-size: 15px; font-family: Georgia, 'Times New Roman', Times, serif; text-decoration: none; line-height: 1.5;">
+                            {{ source.title }}
                           </a>
                           {% if source.outlet %}
-                          <span style="color: #4a7a4a; font-size: 11px; font-family: 'Courier New', Courier, monospace; white-space: nowrap;"> &mdash; {{ source.outlet }}</span>
+                          <br>
+                          <span style="color: #475569; font-size: 11px; font-family: 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans', Verdana, sans-serif;">{{ source.outlet }}</span>
                           {% endif %}
                         </td>
                       </tr>
@@ -175,38 +214,43 @@
           <tr><td style="height: 24px; font-size: 0; line-height: 0;">&nbsp;</td></tr>
           {% endif %}
 
-          {# ══════════════════════════════════════════════════════════════════ #}
-          {# DEEP DIVE                                                           #}
-          {# ══════════════════════════════════════════════════════════════════ #}
+          {# ════════════════════════════════════════════════════════════ #}
+          {# DEEP DIVE                                                     #}
+          {# ════════════════════════════════════════════════════════════ #}
           {% if brief.deepDive %}
           {% set dd = brief.deepDive %}
           <tr>
-            <td class="mobile-padding" style="padding: 0;">
+            <td style="padding: 0;">
 
-              <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color: #0d1a0d; border: 1px solid #2d4a2d;">
+              <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="border-radius: 6px; overflow: hidden;">
                 <tr>
                   {# Left accent bar #}
-                  <td valign="top" style="width: 4px; background-color: #a3e635; padding: 0; font-size: 0; line-height: 0;">&nbsp;</td>
+                  <td valign="top" style="width: 3px; background: linear-gradient(180deg, #38bdf8, #0ea5e9); padding: 0; font-size: 0; line-height: 0;" bgcolor="#38bdf8">&nbsp;</td>
                   {# Content #}
-                  <td style="padding: 20px 22px;">
+                  <td style="padding: 20px; background-color: #0f1629;" bgcolor="#0f1629">
 
                     {# Section label #}
-                    <p style="margin: 0 0 10px 0; color: #a3e635; font-size: 9px; letter-spacing: 3px; text-transform: uppercase; font-family: 'Courier New', Courier, monospace; line-height: 1;">
-                      &#x1F52C; {{ dd.title }}
+                    <p style="margin: 0 0 12px 0; color: #38bdf8; font-size: 9px; letter-spacing: 2.5px; text-transform: uppercase; font-family: 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans', Verdana, sans-serif; line-height: 1;">
+                      Deep Dive
+                    </p>
+
+                    {# Title #}
+                    <p style="margin: 0 0 12px 0; color: #e2e8f0; font-size: 17px; font-weight: 700; line-height: 1.4; font-family: Georgia, 'Times New Roman', Times, serif;">
+                      {{ dd.title }}
                     </p>
 
                     {# Body #}
-                    <p style="margin: 0; color: #d1fae5; font-size: 15px; line-height: 1.75; font-family: Georgia, 'Times New Roman', Times, serif;">
+                    <p class="dd-body" style="margin: 0; color: #94a3b8; font-size: 15px; line-height: 1.75; font-family: Georgia, 'Times New Roman', Times, serif;">
                       {{ dd.body }}
                     </p>
 
-                    {# Read full article link #}
+                    {# CTA button #}
                     {% if dd.source_url %}
-                    <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin-top: 16px;">
+                    <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin-top: 18px;">
                       <tr>
-                        <td style="border: 1px solid #a3e635; padding: 6px 14px;">
-                          <a href="{{ dd.source_url }}" style="color: #a3e635; font-size: 11px; font-family: 'Courier New', Courier, monospace; text-decoration: none; letter-spacing: 1px; white-space: nowrap;">
-                            &#x2197; READ FULL ARTICLE
+                        <td style="background-color: #38bdf8; border-radius: 4px; padding: 10px 20px;">
+                          <a href="{{ dd.source_url }}" style="color: #080c18; font-size: 12px; font-family: 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans', Verdana, sans-serif; text-decoration: none; font-weight: 700; letter-spacing: 0.5px; white-space: nowrap;">
+                            Read Full Article &#x2192;
                           </a>
                         </td>
                       </tr>
@@ -224,17 +268,23 @@
           <tr><td style="height: 28px; font-size: 0; line-height: 0;">&nbsp;</td></tr>
           {% endif %}
 
-          {# ══════════════════════════════════════════════════════════════════ #}
-          {# FOOTER                                                              #}
-          {# ══════════════════════════════════════════════════════════════════ #}
+          {# ════════════════════════════════════════════════════════════ #}
+          {# FOOTER                                                        #}
+          {# ════════════════════════════════════════════════════════════ #}
           <tr>
-            <td style="padding: 0 0 8px 0; border-top: 1px solid #1a2e1a;">
+            <td style="padding: 0;">
+              <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+                <tr><td style="height: 1px; background-color: #1a2440; font-size: 0; line-height: 0;">&nbsp;</td></tr>
+              </table>
             </td>
           </tr>
           <tr>
-            <td style="padding: 16px 0 4px 0; text-align: center;">
-              <p style="margin: 0; color: #4a7a4a; font-size: 11px; font-family: 'Courier New', Courier, monospace; letter-spacing: 1.5px; line-height: 1.6;">
-                Generated by Claude &bull; AI Morning Brief &bull; {{ delivery_label }}
+            <td style="padding: 20px 0 4px 0; text-align: center;">
+              <p style="margin: 0; color: #475569; font-size: 11px; font-family: 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans', Verdana, sans-serif; line-height: 1.6;">
+                {{ delivery_label }}
+              </p>
+              <p style="margin: 6px 0 0 0; color: #2d3a52; font-size: 10px; font-family: 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans', Verdana, sans-serif; line-height: 1;">
+                Powered by Claude
               </p>
             </td>
           </tr>
