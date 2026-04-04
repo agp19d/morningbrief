@@ -134,7 +134,7 @@ MAX_LINKS: int = int(_conf("brief", "max_source_links", default="2"))
 TOPICS: str = _conf(
     "brief",
     "topics",
-    default="AI Models & Research, Big Tech (Google/Apple/Microsoft/Meta), Agentic AI",
+    default="AI Models & Research, Big Tech (Google/Apple/Microsoft/Meta), Agentic AI, AI Automation",
 )
 
 # ---------------------------------------------------------------------------
