@@ -3,15 +3,16 @@ renderer.py
 -----------
 Renders email content from Jinja2 templates and a brief dict.
 
-Templates live in src/templates/ and are kept separate from Python code
-so they can be edited without touching application logic.
+Templates live in ``src/templates/`` and are kept separate from Python
+code so they can be edited without touching application logic.
 
 Templates receive:
-    brief         — the full parsed brief dict
-    max_links     — max number of source links to display (from config)
-    delivery_label — footer label string (from config)
+    brief           -- the full parsed brief dict
+    max_links       -- max number of source links to display (from config)
+    delivery_label  -- footer label string (from config)
 
-Public interface:
+Public interface::
+
     render_html(brief: dict) -> str
     render_plain(brief: dict) -> str
 """
@@ -25,29 +26,30 @@ from config import DELIVERY_LABEL, MAX_LINKS
 # ---------------------------------------------------------------------------
 # Jinja2 environment
 # ---------------------------------------------------------------------------
-_TEMPLATES_DIR = os.path.join(os.path.dirname(__file__), "templates")
+_TEMPLATES_DIR: str = os.path.join(os.path.dirname(__file__), "templates")
 
-# Autoescape HTML only — plain text template must not be escaped.
+# Autoescape HTML only — plain-text template must not be escaped.
 _env = Environment(
     loader=FileSystemLoader(_TEMPLATES_DIR),
     autoescape=select_autoescape(enabled_extensions=("html",)),
-    trim_blocks=True,    # Remove newline after block tags (cleaner HTML output)
-    lstrip_blocks=True,  # Strip leading whitespace from block tags
+    trim_blocks=True,
+    lstrip_blocks=True,
 )
+
 
 # ---------------------------------------------------------------------------
 # Shared template context
 # ---------------------------------------------------------------------------
 
 def _base_context(brief: dict) -> dict:
-    """
-    Build the shared context dict passed to every template.
+    """Build the shared context dict passed to every template.
 
     Args:
-        brief: Parsed brief dict from fetcher.fetch_brief().
+        brief: Parsed brief dict from :func:`fetcher.fetch_brief`.
 
     Returns:
-        Context dict with brief, max_links, and delivery_label.
+        Context dict with ``brief``, ``max_links``, and
+        ``delivery_label``.
     """
     return {
         "brief": brief,
@@ -61,8 +63,7 @@ def _base_context(brief: dict) -> dict:
 # ---------------------------------------------------------------------------
 
 def render_html(brief: dict) -> str:
-    """
-    Render the HTML email from email.html.
+    """Render the HTML email from ``email.html``.
 
     Args:
         brief: Parsed brief dict.
@@ -75,14 +76,13 @@ def render_html(brief: dict) -> str:
 
 
 def render_plain(brief: dict) -> str:
-    """
-    Render the plain-text email fallback from email.txt.
+    """Render the plain-text email fallback from ``email.txt``.
 
     Args:
         brief: Parsed brief dict.
 
     Returns:
-        Rendered plain text string.
+        Rendered plain-text string.
     """
     template = _env.get_template("email.txt")
     return template.render(**_base_context(brief))
