@@ -12,6 +12,7 @@ The JSON must follow this exact structure:
     {{ "topic": "AI Models & Research", "icon": "🧠", "text": "Punchy bullet on the top model or research story." }},
     {{ "topic": "Big Tech",             "icon": "🏢", "text": "Punchy bullet on Google/Apple/Microsoft/Meta." }},
     {{ "topic": "Agentic AI",           "icon": "🤖", "text": "Punchy bullet on agentic AI developments." }},
+    {{ "topic": "AI Automation",         "icon": "⚙️", "text": "How companies and developers are using AI to automate workflows — tools like Claude Code, OpenClaw, Devin, or whatever is trending in AI-powered automation." }},
     {{ "topic": "Quick Hit",            "icon": "⚡", "text": "A fast fact or surprising stat from today." }},
     {{ "topic": "Worth Watching",       "icon": "👀", "text": "A trend or story building momentum." }}
   ],

@@ -1,0 +1,1 @@
+- [Email Template Design State](project_email_design.md) — design decisions and constraints for the dark-themed HTML email template (table-based, Outlook-safe)

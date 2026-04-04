@@ -17,3 +17,22 @@ terraform/**/.terraform/
 terraform/**/*.tfstate
 terraform/**/*.tfstate.backup
 terraform/**/terraform.tfvars
+
+# Test / coverage artifacts
+.pytest_cache/
+htmlcov/
+.coverage
+coverage.xml
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Build output
+out.json
