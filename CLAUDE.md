@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Serverless pipeline that delivers a daily AI & tech news email. An EventBridge cron triggers an AWS Lambda that searches the web via Tavily, synthesizes results with an LLM via LiteLLM, renders HTML/plain-text emails with Jinja2, and sends via Gmail SMTP.
+Serverless pipeline that delivers a daily AI & tech news email. An EventBridge cron triggers an AWS Lambda that searches the web via Tavily, synthesizes results with an LLM via LiteLLM, renders HTML/plain-text emails with Jinja2, and sends via AWS SES.
 
 ## Build & Deploy
 
@@ -29,9 +29,9 @@ The build script uses `uv pip install --python-platform linux` to get manylinux 
 
 ## Architecture
 
-**Pipeline flow:** `lambda_function.py` (entry point) -> `fetcher.py` (Tavily search + LiteLLM completion) -> `renderer.py` (Jinja2 templates) -> `sender.py` (Gmail SMTP)
+**Pipeline flow:** `lambda_function.py` (entry point) -> `fetcher.py` (Tavily search + LiteLLM completion) -> `renderer.py` (Jinja2 templates) -> `sender.py` (AWS SES)
 
-**Config resolution** (`config.py`): three-tier fallback — `config.ini` (local dev, git-ignored) > environment variables (Lambda/CI) > hard-coded defaults. Secrets must never be hard-coded; in prod they come from Lambda env vars injected by Terraform via `TF_VAR_*` from GitHub Secrets.
+**Config resolution** (`config.py`): three-tier fallback — `config.ini` (local dev, git-ignored) > environment variables (Lambda/CI) > hard-coded defaults. Secrets must never be hard-coded; in prod they come from Lambda env vars injected by Terraform via `TF_VAR_*` from GitHub Secrets. Email sending uses AWS SES (credentials from the Lambda execution role, no API keys needed).
 
 **LLM provider switching:** Change `LLM_MODEL` to any LiteLLM-compatible string (e.g. `openai/gpt-4o-mini`, `gemini/gemini-1.5-flash`). `config.py` auto-injects the API key into the correct provider env var.
 
