@@ -67,21 +67,21 @@ variable "tavily_api_key" {
   sensitive   = true
 }
 
-# ── Email ────────────────────────────────────────────────────────────────────
+# ── Email (AWS SES) ─────────────────────────────────────────────────────────
 
-variable "gmail_address" {
-  description = "Gmail address used to send the brief."
+variable "ses_from_email" {
+  description = "Verified SES sender email address."
   type        = string
 }
 
-variable "gmail_app_password" {
-  description = "Gmail App Password (16 characters, no spaces)."
-  type        = string
-  sensitive   = true
-}
-
-variable "to_email" {
-  description = "Recipient email address. Defaults to gmail_address if empty."
+variable "ses_to_email" {
+  description = "Recipient email address. Defaults to ses_from_email if empty."
   type        = string
   default     = ""
+}
+
+variable "ses_region" {
+  description = "AWS region for SES. Defaults to us-east-1."
+  type        = string
+  default     = "us-east-1"
 }

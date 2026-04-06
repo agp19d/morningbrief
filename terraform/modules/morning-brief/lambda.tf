@@ -33,6 +33,35 @@ resource "aws_iam_role_policy_attachment" "lambda_basic_execution" {
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
 }
 
+# ── SES send permission ────────────────────────────────────────────────────
+
+data "aws_iam_policy_document" "ses_send" {
+  statement {
+    effect  = "Allow"
+    actions = ["ses:SendRawEmail"]
+    resources = [
+      aws_ses_email_identity.sender.arn,
+    ]
+  }
+}
+
+resource "aws_iam_role_policy" "lambda_ses_send" {
+  name   = "morning-brief-ses-send-${var.environment}"
+  role   = aws_iam_role.lambda_exec.id
+  policy = data.aws_iam_policy_document.ses_send.json
+}
+
+# ── SES email identities ──────────────────────────────────────────────────
+
+resource "aws_ses_email_identity" "sender" {
+  email = var.ses_from_email
+}
+
+resource "aws_ses_email_identity" "recipient" {
+  count = var.ses_to_email != "" && var.ses_to_email != var.ses_from_email ? 1 : 0
+  email = var.ses_to_email
+}
+
 # ── Lambda function ──────────────────────────────────────────────────────────
 
 resource "aws_lambda_function" "morning_brief" {
@@ -52,17 +81,20 @@ resource "aws_lambda_function" "morning_brief" {
 
   environment {
     variables = {
-      LLM_MODEL          = var.llm_model
-      ANTHROPIC_API_KEY  = var.anthropic_api_key
-      TAVILY_API_KEY     = var.tavily_api_key
-      GMAIL_ADDRESS      = var.gmail_address
-      GMAIL_APP_PASSWORD = var.gmail_app_password
-      TO_EMAIL           = coalesce(var.to_email, var.gmail_address)
-      ENVIRONMENT        = var.environment
+      LLM_MODEL         = var.llm_model
+      ANTHROPIC_API_KEY = var.anthropic_api_key
+      TAVILY_API_KEY    = var.tavily_api_key
+      SES_FROM_EMAIL    = var.ses_from_email
+      SES_REGION        = var.ses_region
+      TO_EMAIL          = coalesce(var.ses_to_email, var.ses_from_email)
+      ENVIRONMENT       = var.environment
     }
   }
 
-  depends_on = [aws_iam_role_policy_attachment.lambda_basic_execution]
+  depends_on = [
+    aws_iam_role_policy_attachment.lambda_basic_execution,
+    aws_iam_role_policy.lambda_ses_send,
+  ]
 }
 
 # ── EventBridge schedule (prod only) ────────────────────────────────────────

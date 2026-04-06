@@ -43,21 +43,15 @@ class TestValidateRuntimeConfig:
             with pytest.raises(ConfigError, match="TAVILY_API_KEY"):
                 validate_runtime_config()
 
-    def test_raises_when_gmail_address_missing(self):
-        with patch.object(config, "GMAIL_ADDRESS", ""):
-            with pytest.raises(ConfigError, match="GMAIL_ADDRESS"):
-                validate_runtime_config()
-
-    def test_raises_when_gmail_password_missing(self):
-        with patch.object(config, "GMAIL_APP_PASSWORD", ""):
-            with pytest.raises(ConfigError, match="GMAIL_APP_PASSWORD"):
+    def test_raises_when_ses_from_email_missing(self):
+        with patch.object(config, "SES_FROM_EMAIL", ""):
+            with pytest.raises(ConfigError, match="SES_FROM_EMAIL"):
                 validate_runtime_config()
 
     def test_passes_when_all_present(self):
         with (
             patch.object(config, "TAVILY_API_KEY", "key"),
-            patch.object(config, "GMAIL_ADDRESS", "a@b.com"),
-            patch.object(config, "GMAIL_APP_PASSWORD", "pass"),
+            patch.object(config, "SES_FROM_EMAIL", "a@b.com"),
             patch.object(config, "LLM_MODEL", "anthropic/claude-haiku-4-5-20251001"),
             patch.dict(os.environ, {"ANTHROPIC_API_KEY": "test"}),
         ):

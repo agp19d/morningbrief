@@ -46,12 +46,11 @@ module "morning_brief" {
   lambda_zip_path     = "../../../lambda.zip"
   schedule_expression = "cron(0 11 * * ? *)"
 
-  llm_model          = var.llm_model
-  anthropic_api_key  = var.anthropic_api_key
-  tavily_api_key     = var.tavily_api_key
-  gmail_address      = var.gmail_address
-  gmail_app_password = var.gmail_app_password
-  to_email           = var.to_email
+  llm_model         = var.llm_model
+  anthropic_api_key = var.anthropic_api_key
+  tavily_api_key    = var.tavily_api_key
+  ses_from_email    = var.ses_from_email
+  ses_to_email      = var.ses_to_email
 }
 
 # ── Outputs ──────────────────────────────────────────────────────────────────
@@ -63,9 +62,8 @@ output "cloudwatch_log_group" { value = module.morning_brief.cloudwatch_log_grou
 
 # ── Variables (supplied via TF_VAR_* env vars in CI) ─────────────────────────
 
-variable "llm_model"          { default   = "anthropic/claude-haiku-4-5-20251001" }
-variable "anthropic_api_key"  { sensitive = true }
-variable "tavily_api_key"     { sensitive = true }
-variable "gmail_address"      {}
-variable "gmail_app_password" { sensitive = true }
-variable "to_email"           { default   = "" }
+variable "llm_model"         { default   = "anthropic/claude-haiku-4-5-20251001" }
+variable "anthropic_api_key" { sensitive = true }
+variable "tavily_api_key"    { sensitive = true }
+variable "ses_from_email"    {}
+variable "ses_to_email"      { default   = "" }
