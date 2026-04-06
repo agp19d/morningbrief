@@ -19,9 +19,8 @@ jobs:
       # Terraform variables injected from GitHub secrets
       TF_VAR_anthropic_api_key:  ${{ secrets.ANTHROPIC_API_KEY }}
       TF_VAR_tavily_api_key:     ${{ secrets.TAVILY_API_KEY }}
-      TF_VAR_gmail_address:      ${{ secrets.GMAIL_ADDRESS }}
-      TF_VAR_gmail_app_password: ${{ secrets.GMAIL_APP_PASSWORD }}
-      TF_VAR_to_email:           ${{ secrets.TO_EMAIL }}
+      TF_VAR_ses_from_email:     ${{ secrets.SES_FROM_EMAIL }}
+      TF_VAR_ses_to_email:       ${{ secrets.TO_EMAIL }}
 
     steps:
       - name: Checkout

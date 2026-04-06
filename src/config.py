@@ -8,7 +8,7 @@ Priority order (highest to lowest):
   2. Environment variables -- used in AWS Lambda (injected by Terraform)
   3. Hard-coded defaults -- safe fallbacks for non-secret settings only
 
-Secrets (API keys, gmail_app_password) must never be hard-coded.
+Secrets (API keys) must never be hard-coded.
 In production, leave config.ini absent and rely on environment variables.
 
 Switching LLM providers:
@@ -110,20 +110,22 @@ TAVILY_API_KEY: str = _conf(
 )
 
 # ---------------------------------------------------------------------------
-# Email
+# Email (AWS SES)
 # ---------------------------------------------------------------------------
-GMAIL_ADDRESS: str = _conf(
-    "email", "gmail_address",
-    env_fallback="GMAIL_ADDRESS",
+SES_FROM_EMAIL: str = _conf(
+    "email", "ses_from_email",
+    env_fallback="SES_FROM_EMAIL",
 )
-GMAIL_APP_PASSWORD: str = _conf(
-    "email", "gmail_app_password",
-    env_fallback="GMAIL_APP_PASSWORD",
+
+SES_REGION: str = _conf(
+    "email", "ses_region",
+    env_fallback="SES_REGION",
+    default="us-east-1",
 )
 
 # If no explicit recipient is set, the brief is sent to the sender's own address.
 TO_EMAIL: str = (
-    _conf("email", "to_email", env_fallback="TO_EMAIL") or GMAIL_ADDRESS
+    _conf("email", "to_email", env_fallback="TO_EMAIL") or SES_FROM_EMAIL
 )
 
 # ---------------------------------------------------------------------------
@@ -155,10 +157,8 @@ def validate_runtime_config() -> None:
     missing: list[str] = []
     if not TAVILY_API_KEY:
         missing.append("TAVILY_API_KEY")
-    if not GMAIL_ADDRESS:
-        missing.append("GMAIL_ADDRESS")
-    if not GMAIL_APP_PASSWORD:
-        missing.append("GMAIL_APP_PASSWORD")
+    if not SES_FROM_EMAIL:
+        missing.append("SES_FROM_EMAIL")
 
     # Check that the LLM provider key is available in the environment.
     if "/" in LLM_MODEL:
