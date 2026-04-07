@@ -39,9 +39,12 @@ data "aws_iam_policy_document" "ses_send" {
   statement {
     effect  = "Allow"
     actions = ["ses:SendRawEmail"]
-    resources = [
-      aws_ses_email_identity.sender.arn,
-    ]
+    # SES evaluates IAM against every identity referenced in the message
+    # (sender AND recipient), so both identity ARNs must be granted.
+    resources = concat(
+      [aws_ses_email_identity.sender.arn],
+      [for r in aws_ses_email_identity.recipient : r.arn],
+    )
   }
 }
 
