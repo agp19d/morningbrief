@@ -36,3 +36,7 @@ Thumbs.db
 
 # Build output
 out.json
+
+# Stuff I want to ignore
+.ignore/
+.claude/
